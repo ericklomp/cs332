@@ -1,4 +1,4 @@
-package cs332.RCMP;
+package cs332.cs332.RCMP;
 /*
 *
 * Reciever Side of Reliable Message-based Protocol for File Trasfer Using UDP

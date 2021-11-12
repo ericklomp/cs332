@@ -1,4 +1,4 @@
-package cs332.RCMP;
+package cs332.cs332.RCMP;
 
 /*
 *

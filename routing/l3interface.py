@@ -1,6 +1,6 @@
 from l3addr import L3Addr
 from utils import maskToHostMask, maskToInt
-from icecream import ic
+#from icecream import ic
 
 
 class L3Interface:
@@ -8,7 +8,7 @@ class L3Interface:
     def __init__(self, number: int, addr: str, mask_numbits: int):
         self._number = number
         self._mask = maskToInt(mask_numbits)
-        ic(self._mask)
+        print(self._mask)
         self._mask_numbits = mask_numbits
         self._addr = L3Addr(addr)
 
@@ -17,11 +17,14 @@ class L3Interface:
 
     def get_netaddr(self) -> L3Addr:
         # TODO
+        mask = maskToHostMask(self._mask_numbits)
+        return L3Addr(self._addr.as_int() & ~mask)
 
     def get_directed_bcast_addr(self) -> L3Addr:
         host_mask = maskToHostMask(self._mask_numbits)
         # host_mask is all 1 bits in the host part -- which is the same as a bcast value!
         # TODO: one missing line here.
+        host_bcast = host_mask | self._addr.as_int()
         return L3Addr(host_bcast)
 
     def get_mask(self):
@@ -33,6 +36,10 @@ class L3Interface:
     def on_same_network(self, addr: L3Addr) -> bool:
         '''return True if the given addr is on this interface's network.'''
         # TODO
+        if self._addr.network_part_as_int(self._mask_numbits) == addr.network_part_as_int(self._mask_numbits):
+            return True
+        else:
+            False
 
     def get_addr(self):
         return self._addr
@@ -58,6 +65,7 @@ if __name__ == "__main__":
     assert iface.on_same_network(L3Addr("10.10.11.3"))
     assert not iface.on_same_network(L3Addr("10.10.12.74"))
 
+    print(iface.get_directed_bcast_addr().as_str())
     assert iface.get_directed_bcast_addr().as_str() == "10.10.11.255"
     assert iface.get_netaddr().as_str() == "10.10.10.0"
 

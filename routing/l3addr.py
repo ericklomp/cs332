@@ -15,7 +15,7 @@ class L3Addr:
             parts = val.split('.')
             if len(parts) != 4:
                 raise ValueError("str val must have the form x.y.z.w")
-            # TODO: convert parts (list of strings) into one integer value in variable res
+            # convert parts (list of strings) into one integer value in variable res
             #res = int(parts[0]) + int(parts[1]) + int(parts[2]) + int(parts[3])
             convert = '{0:08b}'.format(int(parts[0])) + '{0:08b}'.format(int(parts[1])) + '{0:08b}'.format(int(parts[2])) + '{0:08b}'.format(int(parts[3]))
             res = int(convert, base=2)

@@ -16,14 +16,12 @@ class L3Interface:
         return self._number
 
     def get_netaddr(self) -> L3Addr:
-        # TODO
         mask = maskToHostMask(self._mask_numbits)
         return L3Addr(self._addr.as_int() & ~mask)
 
     def get_directed_bcast_addr(self) -> L3Addr:
         host_mask = maskToHostMask(self._mask_numbits)
         # host_mask is all 1 bits in the host part -- which is the same as a bcast value!
-        # TODO: one missing line here.
         host_bcast = host_mask | self._addr.as_int()
         return L3Addr(host_bcast)
 
@@ -35,7 +33,6 @@ class L3Interface:
 
     def on_same_network(self, addr: L3Addr) -> bool:
         '''return True if the given addr is on this interface's network.'''
-        # TODO
         if self._addr.network_part_as_int(self._mask_numbits) == addr.network_part_as_int(self._mask_numbits):
             return True
         else:

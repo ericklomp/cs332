@@ -19,7 +19,6 @@ class Router:
         if the packet originated on this device). Return the interface # it was sent out,
         or None, if dropped or accepted to be processed on this host.'''
 
-        # TODO: implement this.
         # Check the following and drop pkt if any are true:
         #   bcast packets (including directed bcast)
         #   dest on same network as packet arrived on: drop
@@ -32,6 +31,7 @@ class Router:
             return None
 
         for interface in self._ifaces:
+            #drip packets if its a direct broadcast address
             if pkt.dest == interface.get_directed_bcast_addr():
                 print(f'{pkt} dropped. Directed broadcast address')
                 return None
@@ -49,7 +49,6 @@ class Router:
 
         entry = self._routing_table.get_best_route(pkt.dest)
 
-        # NOTE: print out what the algorithm is doing just before each return statement.
         # e.g., print(f"{pkt} accepted because dest matches iface {iface.get_number()}")
 
         print(f'{pkt} routed to interface {entry.iface_num}')

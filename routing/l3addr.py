@@ -1,8 +1,8 @@
-#from icecream import ic
+from icecream import ic
 from utils import maskToHostMask, maskToInt
 
 # Disable debugging output
-#ic.disable()
+ic.disable()
 
 
 class L3Addr:
@@ -67,7 +67,7 @@ class L3Addr:
 if __name__ == "__main__":
     a = L3Addr("10.11.12.13")
     assert a.as_str() == "10.11.12.13"
-    print(a.as_int())
+    #print(a.as_int())
     assert a.as_int() == 168496141
 
     try:

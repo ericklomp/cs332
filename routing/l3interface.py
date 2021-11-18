@@ -8,7 +8,7 @@ class L3Interface:
     def __init__(self, number: int, addr: str, mask_numbits: int):
         self._number = number
         self._mask = maskToInt(mask_numbits)
-        print(self._mask)
+        #print(self._mask)
         self._mask_numbits = mask_numbits
         self._addr = L3Addr(addr)
 
